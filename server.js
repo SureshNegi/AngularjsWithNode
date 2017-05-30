@@ -5,6 +5,7 @@ var app = express();
 app.use(express.static("App"));
 
 app.get('/', function (req, res) {
+    console.log("server request");
     res.redirect('/');
 });
 

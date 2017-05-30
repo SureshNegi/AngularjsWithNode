@@ -36,16 +36,15 @@ angular.module('F1FeederApp.controllers', []).
         $scope.races = [];
         $scope.driver = null;
        
-        $scope.login=function(){
-           
+        $scope.login=function(){           
             $location.path('/drivers');
         }
-
-        //ergastAPIservice.getDriverDetails($scope.id).success(function (response) {
-        //    $scope.driver = response.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
-        //});
-
-        //ergastAPIservice.getDriverRaces($scope.id).success(function (response) {
-        //    $scope.races = response.MRData.RaceTable.Races;
-        //});
-    });
+        $scope.SignUp = function () {
+            $location.path('/register');
+        }       
+  })
+.controller('registerController', function ($scope, $routeParams, ergastAPIservice, $location) {   
+    this.register = function () {
+        alert('hi');
+    }
+});
