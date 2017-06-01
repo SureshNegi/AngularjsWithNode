@@ -37,7 +37,30 @@ angular.module('F1FeederApp.controllers', []).
       $scope.driver = null;
 
       $scope.login = function () {
-          $location.path('/drivers');
+          // $location.path('/drivers');
+          user_info = { uName: $scope.username, passWord: $scope.password };
+          $.ajax({
+              url: 'http://127.0.0.1:8080/login',
+              data: JSON.stringify(user_info),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              type: 'POST',
+              success: function (data) {
+                  if (data.response.status == 1)
+                      $location.path('/drivers');
+                  else {
+                      $scope.$apply(function () {
+                          $scope.loginError = true;
+                      });                   
+                      
+                  }
+              },
+              error: function (xhr, status, error) {
+                  $scope.$apply(function () {
+                      $scope.loginError = true;
+                  });
+              }
+          });;
       }
       $scope.SignUp = function () {
           $location.path('/register');
@@ -51,19 +74,17 @@ angular.module('F1FeederApp.controllers', []).
 
         $.ajax({
             url: 'http://127.0.0.1:8080/addUser',
-            data: JSON.stringify({ "info": user_info }),
+            data: JSON.stringify(user_info),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             type: 'POST',
            
-            success: function (data) {
-
-                alert('yes');
-                console.log('success');
+            success: function (data) {               
+                $location.path('/login');
             },
             error: function (xhr, status, error) {
 
-                alert('no');
+                alert('error on user registeration');
             }
         });;
     }
